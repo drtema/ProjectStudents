@@ -3,6 +3,7 @@ package com.drtema.mainclasses;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,12 +16,11 @@ public class Course {
     private final int courseID;
     private final String courseName;
     private String courseDescription;
-    private List<Student> studentsList = new LinkedList<Student>();
-    private Trainer trainer;
+    private List<Student> studentsList = new ArrayList<>();
+    private int trainerID = 0;
     private LocalDate startDate;
     private LocalDate endDate;
     private List<DayOfWeek> dayOfTheCourses = new LinkedList();
-    private SimpleDateFormat format1 = new SimpleDateFormat("yyyy.MM.dd");
 
     public Course(
             String courseName,
@@ -39,10 +39,6 @@ public class Course {
         }
     }
 
-    public void setTrainer(Trainer trainer) {
-        this.trainer = trainer;
-    }
-
     public int getCourseID() {
         return courseID;
     }
@@ -51,21 +47,25 @@ public class Course {
         return courseName;
     }
 
-    public List<Student> getStudentsList() {
-        return studentsList;
+    public void setTrainerID(Integer trainer){
+        this.trainerID = trainer;
+    }
+
+    public int getTrainerID() {
+        return trainerID;
     }
 
     @Override
     public String toString() {
         return
-                " courseID=" + courseID +
-                ",\n courseName='" + courseName + '\'' +
-                ",\n courseDescription='" + courseDescription + '\'' +
-                ",\n studentsList=" + studentsList +
-                ",\n trainer=" + trainer +
-                ",\n startDate='" + startDate + '\'' +
-                ",\n endDate='" + endDate+ '\'' +
-                ",\n dayOfTheCourses=" + dayOfTheCourses
+                "\ncourseID=" + courseID +
+                "\ncourseName='" + courseName + '\'' +
+                "\ncourseDescription='" + courseDescription + '\'' +
+                "\nstartDate='" + startDate + '\'' +
+                "\nendDate='" + endDate+ '\'' +
+                "\ndayOfTheCourses=" + dayOfTheCourses
                 ;
     }
+
+
 }

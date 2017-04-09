@@ -1,0 +1,15 @@
+Java for beginners
+Course for people that want learn Java programming language
+2017.02.10
+2017.05.10
+MON,WED,FRI
+HTML basics
+Course for people that want learn HTML language
+2017.05.20
+2017.08.20
+TUE,THU,SAT
+Database architect
+Course for people that want learn database
+2017.01.15
+2017.03.15
+TUE,THU,SUN

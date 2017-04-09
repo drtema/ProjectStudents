@@ -8,11 +8,10 @@ import com.drtema.mainclasses.Student;
  */
 public interface CoursesDAO {
     void add(Course course);
-    Course find(int courseID);
     void view(int courseID);
     void viewAllNames();
+    Course find(int courseID);
     void viewAllStudents(int courseID);
     void addStudent(int courseID,int studentID);
-    void addTrainer(int courseID,int trainerID);
 
 }

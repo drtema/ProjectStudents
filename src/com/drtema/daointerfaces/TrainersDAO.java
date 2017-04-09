@@ -7,6 +7,7 @@ import com.drtema.mainclasses.Trainer;
  */
 public interface TrainersDAO {
     void add(Trainer trainer);
-    void find(int trainerID);
+    Trainer find(int trainerID);
     void view(int trainerID);
+
 }

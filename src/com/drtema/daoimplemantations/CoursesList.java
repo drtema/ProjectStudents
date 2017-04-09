@@ -5,21 +5,29 @@ import com.drtema.mainclasses.Course;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+
 
 /**
  * Created by Dr.tema on 08.04.17.
  */
 public class CoursesList implements CoursesDAO {
 
-    List<Course> courses = new ArrayList();
+    private static List<Course> courses = new ArrayList<>();
+
+    public static List<String> getCoursesNames() {
+
+        List<String> coursesNames = new ArrayList();
+        for (Course course : courses) {
+            coursesNames.add(course.getCourseName());
+        }
+        return coursesNames;
+    }
 
     @Override
     public void add(Course course) {
         courses.add(course);
     }
 
-    @Override
     public Course find(int courseID) {
         for (Course course:courses) {
             if (courseID == course.getCourseID()) {
@@ -42,9 +50,10 @@ public class CoursesList implements CoursesDAO {
 
         if (courses.size() == 0) {
             System.out.println("No courses available yet");
-        } else
-        for (Course course : courses) {
-            System.out.println(course.getCourseName());
+        } else {
+            for (Course course : courses) {
+                System.out.println(course.getCourseName() + " (id:" + course.getCourseID() + ")");
+            }
         }
 
     }
@@ -59,8 +68,5 @@ public class CoursesList implements CoursesDAO {
 
     }
 
-    @Override
-    public void addTrainer(int courseID, int trainerID) {
 
-    }
 }
