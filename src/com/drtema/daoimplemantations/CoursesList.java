@@ -20,17 +20,32 @@ public class CoursesList implements CoursesDAO {
     }
 
     @Override
-    public void find(int courseID) {
-
+    public Course find(int courseID) {
+        for (Course course:courses) {
+            if (courseID == course.getCourseID()) {
+                return course;
+            }
+        }
+        return null;
     }
 
     @Override
     public void view(int courseID) {
-
+        if(find(courseID) == null) {
+            System.out.println("Course with id " + courseID + " doesn’t exist");
+        } else
+        System.out.println(find(courseID));
     }
 
     @Override
     public void viewAllNames() {
+
+        if (courses.size() == 0) {
+            System.out.println("No courses available yet");
+        } else
+        for (Course course : courses) {
+            System.out.println(course.getCourseName());
+        }
 
     }
 
