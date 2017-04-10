@@ -480,7 +480,7 @@ public class CourseInterface {
         }while (true);
 
         do {
-            System.out.println("Enter the mark id: ");
+            System.out.println("Enter the mark: ");
             if (!scanner.hasNextInt()) {
                 System.out.println("invalid input!\n");
                 continue;

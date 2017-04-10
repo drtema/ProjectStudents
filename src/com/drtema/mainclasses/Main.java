@@ -68,7 +68,7 @@ public class Main {
                             "\nviewAllCourseStudents - 9" +
                             "\naddTask - 10" +
                             "\naddMark - 11" +
-                            "\naddMark - 12" +
+                            "\nviewJournal - 12" +
                             "\nexit - 0");
             switch (scanner.next()){
                 case "1":
