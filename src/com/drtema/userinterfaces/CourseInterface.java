@@ -2,14 +2,16 @@ package com.drtema.userinterfaces;
 
 import com.drtema.daoimplemantations.CoursesList;
 import com.drtema.daoimplemantations.StudentsList;
+import com.drtema.daoimplemantations.TaskList;
 import com.drtema.daoimplemantations.TrainersList;
 import com.drtema.daointerfaces.CoursesDAO;
 import com.drtema.daointerfaces.StudentsDAO;
+import com.drtema.daointerfaces.TasksDAO;
 import com.drtema.daointerfaces.TrainersDAO;
 import com.drtema.mainclasses.Course;
 import com.drtema.mainclasses.Student;
+import com.drtema.mainclasses.Task;
 import com.drtema.mainclasses.Trainer;
-
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -26,6 +28,7 @@ public class CourseInterface {
     private static TrainersDAO trainersData = new TrainersList();
     private static CoursesDAO coursesData = new CoursesList();
     private static StudentsDAO studentsData = new StudentsList();
+    private static TasksDAO tasksData = new TaskList();
 
     private static Scanner scanner = new Scanner(System.in);
     private static String fileCourses = "/Users/Dr.tema/Documents/projects/ProjectStudents/Courses.txt";
@@ -415,6 +418,93 @@ public class CourseInterface {
                 System.out.printf("Student: \nid: %d%s %s%n", studentID, studentsData.find(studentID).getFirstName(), studentsData.find(studentID).getLastName());
             }
         }catch (NullPointerException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void addTask(){
+        scanner = new Scanner(System.in);
+        String taskName;
+        System.out.println("Enter the task name");
+        taskName = scanner.nextLine();
+
+        Pattern coursesIDPattern = Pattern.compile("([1-9])+");
+        Matcher coursesIDMatcher;
+
+        do{
+            System.out.println("Enter the course ID: ");
+            String id = scanner.nextLine();
+            coursesIDMatcher = coursesIDPattern.matcher(id);
+            if (!coursesIDMatcher.matches()) {
+                System.out.println("Invalid input!");
+                continue;
+            } else {
+                try{
+                    Integer ID = Integer.valueOf(id);
+                    Task task = new Task(taskName,ID);
+                    coursesData.find(ID).addTask(task.getTaskID());
+                    tasksData.add(task);
+                    break;
+                }catch (NullPointerException e){
+                    System.out.println(e.getMessage());
+                }
+            }
+        } while(true);
+    }
+    //TODO
+    public static void addMark(){
+
+        scanner = new Scanner(System.in);
+        Integer courseID;
+        Integer studentID;
+        Integer mark;
+
+        do {
+            System.out.println("Enter the course id: ");
+            if (!scanner.hasNextInt()) {
+                System.out.println("invalid input!\n");
+                continue;
+            }
+            courseID = scanner.nextInt();
+            break;
+        }while (true);
+
+        do {
+            System.out.println("Enter the student id: ");
+            if (!scanner.hasNextInt()) {
+                System.out.println("invalid input!\n");
+                continue;
+            }
+            studentID = scanner.nextInt();
+            break;
+        }while (true);
+
+        do {
+            System.out.println("Enter the mark id: ");
+            if (!scanner.hasNextInt()) {
+                System.out.println("invalid input!\n");
+                continue;
+            }
+            mark = scanner.nextInt();
+            break;
+        }while (true);
+
+
+        try {
+            tasksData.findByCourseID(courseID).setMark(studentsData.find(studentID).getFirstName() + " " + studentsData.find(studentID).getLastName(), mark);
+        } catch (NullPointerException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    //TODO
+    public static void viewJournal(Integer courseID){
+        try {
+            System.out.println(coursesData.find(courseID).getCourseName());
+            for (Integer taskID : coursesData.find(courseID).getTasks()) {
+                System.out.println(tasksData.find(taskID));
+            }
+        } catch (NullPointerException e){
             System.out.println(e.getMessage());
         }
     }

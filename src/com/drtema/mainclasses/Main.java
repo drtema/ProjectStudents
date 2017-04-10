@@ -66,6 +66,9 @@ public class Main {
                             "\nviewStudent - 7" +
                             "\nstudentTransfer - 8" +
                             "\nviewAllCourseStudents - 9" +
+                            "\naddTask - 10" +
+                            "\naddMark - 11" +
+                            "\naddMark - 12" +
                             "\nexit - 0");
             switch (scanner.next()){
                 case "1":
@@ -163,7 +166,28 @@ public class Main {
                         CourseInterface.viewStudentsNames(id);
                     } catch (NullPointerException e){
                         continue outer;
-                    }                case "0":
+                    }
+                case "10":
+                    CourseInterface.addTask();
+                    break;
+                case "11":
+                    CourseInterface.addMark();
+                    break;
+                case "12":
+                    System.out.println("Enter the course id: ");
+
+                    if(!scanner.hasNextInt()){
+                        System.out.println("invalid input!\n");
+                        continue outer;
+                    }
+                    try {
+                        id = scanner.nextInt();
+                        CourseInterface.viewJournal(id);
+                    } catch (NullPointerException e){
+                        continue outer;
+                    }
+                    break;
+                case "0":
                     break outer;
                 default:
                     System.out.println("invalid command!");

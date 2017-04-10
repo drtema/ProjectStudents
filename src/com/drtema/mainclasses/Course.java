@@ -20,7 +20,8 @@ public class Course {
     private int trainerID = 0;
     private LocalDate startDate;
     private LocalDate endDate;
-    private List<DayOfWeek> dayOfTheCourses = new LinkedList();
+    private List<DayOfWeek> dayOfTheCourses = new ArrayList<>();
+    private List<Integer> tasksID = new ArrayList<>();
 
     public Course(
             String courseName,
@@ -80,6 +81,14 @@ public class Course {
 
     public List<Integer> getStudentsIDs() {
         return studentsIDs;
+    }
+
+    public void addTask(Integer taskID){
+        tasksID.add(taskID);
+    }
+
+    public List<Integer> getTasks() {
+        return tasksID;
     }
 
     @Override
