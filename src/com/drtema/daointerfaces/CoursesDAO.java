@@ -11,7 +11,4 @@ public interface CoursesDAO {
     void view(int courseID);
     void viewAllNames();
     Course find(int courseID);
-    void viewAllStudents(int courseID);
-    void addStudent(int courseID,int studentID);
-
 }

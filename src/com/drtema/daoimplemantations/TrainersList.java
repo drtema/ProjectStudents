@@ -14,8 +14,12 @@ public class TrainersList implements TrainersDAO {
     private static List<Trainer> trainersList = new ArrayList<>();
 
     @Override
-    public void add(Trainer trainer) {
+    public int getSize() {
+        return trainersList.size();
+    }
 
+    @Override
+    public void add(Trainer trainer) {
         trainersList.add(trainer);
     }
 
@@ -36,6 +40,7 @@ public class TrainersList implements TrainersDAO {
         } else
             System.out.println(find(trainerID));
     }
+
 
     public static List<String> getTrainersFirstNames() {
 

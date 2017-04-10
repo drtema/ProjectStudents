@@ -44,6 +44,10 @@ public class Main {
                             "\nviewAllCoursesNames - 3" +
                             "\naddTrainer - 4" +
                             "\nviewTrainer - 5" +
+                            "\naddStudent - 6" +
+                            "\nviewStudent - 7" +
+                            "\nstudentTransfer - 8" +
+                            "\nviewAllCourseStudents - 9" +
                             "\nexit - 0");
             switch (scanner.next()){
                 case "1":
@@ -85,11 +89,67 @@ public class Main {
                         continue outer;
                     }
                     break;
-                case "0":
+                case "6":
+                    CourseInterface.addStudent();
+                    break;
+                case "7":
+                    System.out.println("Enter the student id: ");
+                    if(!scanner.hasNextInt()){
+                        System.out.println("invalid input!\n");
+                        continue outer;
+                    }
+                    try {
+                        id = scanner.nextInt();
+                        CourseInterface.viewStudent(id);
+                    } catch (NullPointerException e){
+                        continue outer;
+                    }
+                    break;
+                case "8":
+                    int studentID;
+                    int courseIDToEnroll;
+                    int courseIDToExpel;
+                    System.out.println("Enter the student id to transfer: ");
+                    if(!scanner.hasNextInt()){
+                        System.out.println("invalid input!\n");
+                        continue outer;
+                    }
+                        studentID = scanner.nextInt();
+                    System.out.println("Enter the course id to enroll: ");
+                    if(!scanner.hasNextInt()){
+                        System.out.println("invalid input!\n");
+                        continue outer;
+                    }
+                        courseIDToEnroll = scanner.nextInt();
+                    System.out.println("Enter the course id to expel: ");
+                    if(!scanner.hasNextInt()){
+                        System.out.println("invalid input!\n");
+                        continue outer;
+                    }
+                        courseIDToExpel = scanner.nextInt();
+
+                    try {
+                        CourseInterface.transfer(studentID,courseIDToEnroll,courseIDToExpel);
+                    } catch (NullPointerException e){
+                        continue outer;
+                    }
+                    break;
+                case "9":
+                    System.out.println("Enter the course id: ");
+                    if(!scanner.hasNextInt()){
+                        System.out.println("invalid input!\n");
+                        continue outer;
+                    }
+                    try {
+                        id = scanner.nextInt();
+                        CourseInterface.viewStudentsNames(id);
+                    } catch (NullPointerException e){
+                        continue outer;
+                    }                case "0":
                     break outer;
                 default:
                     System.out.println("invalid command!");
-                    continue outer;
+                    break;
             }
         } while(true);
         CourseInterface.viewAllCoursesNames();

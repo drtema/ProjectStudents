@@ -16,7 +16,7 @@ public class Course {
     private final int courseID;
     private final String courseName;
     private String courseDescription;
-    private List<Student> studentsList = new ArrayList<>();
+    private List<Integer> studentsIDs = new ArrayList<>();
     private int trainerID = 0;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -51,8 +51,35 @@ public class Course {
         this.trainerID = trainer;
     }
 
+    public void addStudentID(Integer studentID) {
+        if (studentsIDs.size() >= 12) {
+            System.out.println("Course with id " + studentID + " already has 12 students");
+        }
+        else {
+            this.studentsIDs.add(studentID);
+        }
+    }
+
+    public void studentExpel(Integer studentID){
+        for (Integer studentsID : studentsIDs) {
+            if(studentID == studentsID){
+                studentsIDs.remove(studentID);
+                return;
+            }
+        }
+        System.out.println("Student with id "+ studentID +" doesn’t exist");
+    }
+
     public int getTrainerID() {
         return trainerID;
+    }
+
+    public int getStudentsListSize(){
+        return studentsIDs.size();
+    }
+
+    public List<Integer> getStudentsIDs() {
+        return studentsIDs;
     }
 
     @Override

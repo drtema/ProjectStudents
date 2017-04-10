@@ -28,6 +28,7 @@ public class CoursesList implements CoursesDAO {
         courses.add(course);
     }
 
+    @Override
     public Course find(int courseID) {
         for (Course course:courses) {
             if (courseID == course.getCourseID()) {
@@ -57,16 +58,5 @@ public class CoursesList implements CoursesDAO {
         }
 
     }
-
-    @Override
-    public void viewAllStudents(int courseID) {
-
-    }
-
-    @Override
-    public void addStudent(int courseID, int studentID) {
-
-    }
-
 
 }

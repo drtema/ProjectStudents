@@ -1,10 +1,13 @@
 package com.drtema.userinterfaces;
 
 import com.drtema.daoimplemantations.CoursesList;
+import com.drtema.daoimplemantations.StudentsList;
 import com.drtema.daoimplemantations.TrainersList;
 import com.drtema.daointerfaces.CoursesDAO;
+import com.drtema.daointerfaces.StudentsDAO;
 import com.drtema.daointerfaces.TrainersDAO;
 import com.drtema.mainclasses.Course;
+import com.drtema.mainclasses.Student;
 import com.drtema.mainclasses.Trainer;
 
 
@@ -22,6 +25,8 @@ public class CourseInterface {
 
     private static TrainersDAO trainersData = new TrainersList();
     private static CoursesDAO coursesData = new CoursesList();
+    private static StudentsDAO studentsData = new StudentsList();
+
     private static Scanner scanner = new Scanner(System.in);
     private static String fileName = "/Users/Dr.tema/Documents/projects/ProjectStudents/Courses.txt";
     private static Path path = Paths.get(fileName);
@@ -143,12 +148,12 @@ public class CourseInterface {
         outer: do {
             System.out.println("Enter the firstName of trainer: ");
             firstName = scanner.nextLine();
-            for (String s : TrainersList.getTrainersFirstNames()) {
-                if (s.equals(firstName)) {
+            for (int i = 1; i <= trainersData.getSize(); i++) {
+                if (trainersData.find(i).getFirstName().equals(firstName)) {
                     System.out.println("Enter the LastName of trainer: ");
                     lastName = scanner.nextLine();
-                    for (String s1 : TrainersList.getTrainersLastNames()) {
-                        if (s1.equals(lastName)) {
+                    for (int j = 1; i <= trainersData.getSize(); j++) {
+                        if (trainersData.find(j).getLastName().equals(lastName)) {
                             System.out.println("Trainer's name should be unique. Please, enter another name");
                             continue outer;
                         }
@@ -165,7 +170,10 @@ public class CourseInterface {
         Pattern coursesIDsPattern = Pattern.compile("([1-9],)*([1-9])");
         Matcher coursesIDsMatcher;
         Scanner IDsScanner;
-        List<Integer> coursesID = new ArrayList();
+
+        Trainer trainer = new Trainer(firstName, lastName);
+
+        trainersData.add(trainer);
 
         outer: do{
             System.out.println("Enter the courses IDs for trainer in format:'1,2,...':: ");
@@ -183,19 +191,16 @@ public class CourseInterface {
                     int ID = Integer.valueOf(IDsScanner.next());
                     if(coursesData.find(ID) == null) {
                         System.out.println("Course with id " + ID + " doesn’t exist");
-                        if (coursesID.size() == 0) {
-                            coursesID.clear();
-                        }
                         continue outer;
                     } else{
                         if (coursesData.find(ID).getTrainerID() != 0) {
                             System.out.println("Course with id " + ID + " already has a trainer assigned");
-                            if (coursesID.size() == 0) {
-                                coursesID.clear();
-                            }
+
                             continue outer;
                         } else {
-                            coursesID.add(ID);
+                            trainer.setCourse(ID);
+                            coursesData.find(ID).setTrainerID(trainer.getTrainerID());
+
                         }
                     }
                 }
@@ -204,24 +209,126 @@ public class CourseInterface {
 
         } while(true);
 
-        Integer[] array = new Integer[coursesID.size()];
+    }
 
-        Trainer trainer = new Trainer(firstName, lastName, coursesID.toArray(array));
+    public static void addStudent() {
 
-        trainersData.add(trainer);
+        scanner = new Scanner(System.in);
 
-        for (Integer id : array) {
-            coursesData.find(id).setTrainerID(trainer.getTrainerID());
-        }
+        String firstName;
+        String lastName;
+        outer: do {
+            System.out.println("Enter the firstName of student: ");
+            firstName = scanner.nextLine();
+            for (int i = 1; i <= studentsData.getSize(); i++) {
+                if (studentsData.find(i).getFirstName().equals(firstName)) {
+                    System.out.println("Enter the LastName of student: ");
+                    lastName = scanner.nextLine();
+                    for (int j = 1; i <= studentsData.getSize(); j++) {
+                        if (studentsData.find(j).getLastName().equals(lastName)) {
+                            System.out.println("Student's name should be unique. Please, enter another name");
+                            continue outer;
+                        }
+                        break outer;
+                    }
+                }
+            }
+            System.out.println("Enter the lastName of student: ");
+            lastName = scanner.nextLine();
+            break;
+        } while(true);
+
+        int age;
+
+        Pattern agePattern = Pattern.compile("[1-9]{2}");
+        Matcher ageMatcher;
+
+        do{
+            System.out.println("Enter the age of student: ");
+            String ageString = scanner.nextLine();
+            ageMatcher = agePattern.matcher(ageString);
+            if (!ageMatcher.matches()) {
+                System.out.println("Invalid input!");
+                continue;
+            } else
+                age = Integer.valueOf(ageString);
+            break;
+        } while (true);
+
+        Pattern coursesIDsPattern = Pattern.compile("([1-9],)*([1-9])");
+        Matcher coursesIDsMatcher;
+        Scanner IDsScanner;
+
+        Student student = new Student(firstName, lastName, age);
+
+        studentsData.add(student);
+
+        outer:
+        do {
+            System.out.println("Enter the courses IDs for student in format:'1,2,...':: ");
+            String coursesIDs = scanner.nextLine();
+
+            coursesIDsMatcher = coursesIDsPattern.matcher(coursesIDs);
+
+            if (!coursesIDsMatcher.matches()) {
+                System.out.println("Invalid input!");
+                continue;
+            } else
+                IDsScanner = new Scanner(coursesIDs).useDelimiter(",");
+
+            while (IDsScanner.hasNext()) {
+                int ID = Integer.valueOf(IDsScanner.next());
+                if (coursesData.find(ID) == null) {
+                    System.out.println("Course with id " + ID + " doesn’t exist");
+                    continue outer;
+                } else {
+                        student.setCourse(ID);
+                        coursesData.find(ID).addStudentID(student.getStudentID());
+                }
+            }
+
+            break;
+
+        } while (true);
     }
 
     public static void viewCourse(int courseID) {
         coursesData.view(courseID);
-        if(coursesData.find(courseID).getTrainerID()==0) return;
-        else {
+        if(coursesData.find(courseID).getTrainerID()!=0) {
             System.out.println("Trainer: ");
             trainersData.view(coursesData.find(courseID).getTrainerID());
         }
+        if(coursesData.find(courseID).getStudentsListSize() != 0) {
+            System.out.println("Students: ");
+            for (Integer studentID : coursesData.find(courseID).getStudentsIDs()) {
+                System.out.println(studentsData.find(studentID));
+            }
+        }
+    }
+
+    public static void transfer(int studentID,int courseIDToEnroll, int courseIDToExpel){
+        if(studentsData.find(studentID) == null){
+            System.out.println("Student with id "+ studentID +" doesn’t exist");
+            return;
+        } else
+            if(coursesData.find(courseIDToEnroll) == null) {
+                System.out.println("Course with id " + courseIDToEnroll + " doesn’t exist");
+                return;
+            } else
+                if(coursesData.find(courseIDToExpel) == null) {
+                    System.out.println("Course with id " + courseIDToEnroll + " doesn’t exist");
+                    return;
+                } else {
+                    for (Integer ID : coursesData.find(courseIDToEnroll).getStudentsIDs()) {
+                        if (ID == studentID) {
+                            System.out.println("Student " + studentID + "already exist");
+                            return;
+                        }
+                    }
+                    coursesData.find(courseIDToEnroll).addStudentID(studentID);
+                    coursesData.find(courseIDToExpel).studentExpel(studentID);
+                }
+        coursesData.find(courseIDToEnroll).addStudentID(studentID);
     }
 
     public static void viewAllCoursesNames() {
@@ -230,7 +337,26 @@ public class CourseInterface {
 
     public static void viewTrainer(int trainerID){
         trainersData.view(trainerID);
-        System.out.println("Trainer's courses= " + trainersData.find(trainerID).getCoursesID());
+        if(trainersData.find(trainerID).getCoursesID().size() !=0) {
+            System.out.println("Trainer's courses= ");
+            for (Integer id : trainersData.find(trainerID).getCoursesID()) {
+                System.out.println(id + ": " + coursesData.find(id));
+            }
+        }
+    }
+
+    public static void viewStudent(int studentID){
+        studentsData.view(studentID);
+        System.out.println("Student's courses= \n");
+        for (Integer id : studentsData.find(studentID).getCoursesID()) {
+            System.out.println("\t" + coursesData.find(id).getCourseName());
+        }
+    }
+
+    public static void viewStudentsNames(int courseID){
+        for (Integer studentID : coursesData.find(courseID).getStudentsIDs()) {
+            System.out.printf("Student: \nid: %d%s %s%n", studentID, studentsData.find(studentID).getFirstName(), studentsData.find(studentID).getLastName());
+        }
     }
 
 }
