@@ -20,12 +20,12 @@ import java.util.regex.Pattern;
  */
 public class CourseInterface {
 
-    static TrainersDAO trainersData = new TrainersList();
-    static CoursesDAO coursesData = new CoursesList();
-    static Scanner scanner = new Scanner(System.in);
-    static String fileName = "/Users/Dr.tema/Documents/projects/ProjectStudents/Courses.txt";
-    static Path path = Paths.get(fileName);
-    static boolean inputType = true;
+    private static TrainersDAO trainersData = new TrainersList();
+    private static CoursesDAO coursesData = new CoursesList();
+    private static Scanner scanner = new Scanner(System.in);
+    private static String fileName = "/Users/Dr.tema/Documents/projects/ProjectStudents/Courses.txt";
+    private static Path path = Paths.get(fileName);
+    private static boolean inputType = true;
 
     public static boolean isInputType() {
         return inputType;
@@ -43,6 +43,7 @@ public class CourseInterface {
                 inputType = false;
                 break;
             }
+            scanner = new Scanner(System.in);
             inputType = true;
             break;
         } while(true);

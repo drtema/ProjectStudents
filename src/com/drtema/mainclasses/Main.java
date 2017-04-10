@@ -36,11 +36,63 @@ public class Main {
             CourseInterface.courseAdd();
         }
 
-//        do{
-//            System.out.println(
-//                    "Available commands: " +
-//                            "addCourse - 1");
-//        } while(flag);
+        outer: do{
+            System.out.println(
+                    "\nAvailable commands: " +
+                            "\naddCourse - 1" +
+                            "\nshowCourse - 2" +
+                            "\nviewAllCoursesNames - 3" +
+                            "\naddTrainer - 4" +
+                            "\nviewTrainer - 5" +
+                            "\nexit - 0");
+            switch (scanner.next()){
+                case "1":
+                    CourseInterface.setInputType("1");
+                    CourseInterface.courseAdd();
+                    break;
+                case "2":
+                    Integer id;
+                    System.out.println("Enter the course id: ");
+
+                        if(!scanner.hasNextInt()){
+                            System.out.println("invalid input!\n");
+                            continue outer;
+                        }
+                    try {
+                        id = scanner.nextInt();
+                        CourseInterface.viewCourse(id);
+                    } catch (NullPointerException e){
+                            continue outer;
+                    }
+                    break;
+                case "3":
+                    CourseInterface.viewAllCoursesNames();
+                    break;
+                case "4":
+                    CourseInterface.addTrainer();
+                    break;
+                case "5":
+                    System.out.println("Enter the trainer id: ");
+                    if(!scanner.hasNextInt()){
+                        System.out.println("invalid input!\n");
+                        continue outer;
+                    }
+                    try {
+                        id = scanner.nextInt();
+
+                        CourseInterface.viewTrainer(id);
+                    } catch (NullPointerException e){
+                        continue outer;
+                    }
+                    break;
+                case "0":
+                    break outer;
+                default:
+                    System.out.println("invalid command!");
+                    continue outer;
+            }
+        } while(true);
         CourseInterface.viewAllCoursesNames();
     }
+
 }

@@ -32,7 +32,7 @@ public class TrainersList implements TrainersDAO {
     @Override
     public void view(int trainerID) {
         if(find(trainerID) == null) {
-            System.out.println("Course with id " + trainerID + " doesn’t exist");
+            System.out.println("Trainer with id " + trainerID + " doesn’t exist");
         } else
             System.out.println(find(trainerID));
     }
