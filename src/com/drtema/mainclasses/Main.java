@@ -31,9 +31,27 @@ public class Main {
                 flag = scanner.next().equals("1");
             } while (flag);
         } else {
-            CourseInterface.courseAdd();
-            CourseInterface.courseAdd();
-            CourseInterface.courseAdd();
+            try {
+
+                CourseInterface.courseAdd();
+                for (int i = 1; i < CourseInterface.getObjectCounter(); i++) {
+                    CourseInterface.courseAdd();
+                }
+
+                CourseInterface.addTrainer();
+                for (int i = 1; i < CourseInterface.getObjectCounter(); i++) {
+                    CourseInterface.addTrainer();
+                }
+
+                CourseInterface.addStudent();
+                for (int i = 1; i < CourseInterface.getObjectCounter(); i++) {
+                    CourseInterface.addStudent();
+                }
+
+            } catch (Exception e){
+                System.out.println("Wrong file format or path. Please input with the console.");
+                CourseInterface.setInputType("1");
+            }
         }
 
         outer: do{

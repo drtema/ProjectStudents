@@ -11,4 +11,5 @@ public interface CoursesDAO {
     void view(int courseID);
     void viewAllNames();
     Course find(int courseID);
+    int getSize();
 }

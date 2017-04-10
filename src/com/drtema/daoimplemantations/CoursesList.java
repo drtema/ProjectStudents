@@ -12,6 +12,8 @@ import java.util.List;
  */
 public class CoursesList implements CoursesDAO {
 
+
+
     private static List<Course> courses = new ArrayList<>();
 
     public static List<String> getCoursesNames() {
@@ -29,21 +31,23 @@ public class CoursesList implements CoursesDAO {
     }
 
     @Override
-    public Course find(int courseID) {
+    public Course find(int courseID) throws NullPointerException {
         for (Course course:courses) {
             if (courseID == course.getCourseID()) {
                 return course;
             }
         }
-        return null;
+        throw new NullPointerException("Course with id " + courseID + " doesn’t exist");
     }
 
     @Override
     public void view(int courseID) {
-        if(find(courseID) == null) {
-            System.out.println("Course with id " + courseID + " doesn’t exist");
-        } else
-        System.out.println(find(courseID));
+        try {
+
+            System.out.println(find(courseID));
+        } catch (NullPointerException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
@@ -57,6 +61,11 @@ public class CoursesList implements CoursesDAO {
             }
         }
 
+    }
+
+    @Override
+    public int getSize() {
+        return courses.size();
     }
 
 }

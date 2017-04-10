@@ -53,7 +53,7 @@ public class Course {
 
     public void addStudentID(Integer studentID) {
         if (studentsIDs.size() >= 12) {
-            System.out.println("Course with id " + studentID + " already has 12 students");
+            System.out.println("Course with id " + getCourseID() + " already has 12 students");
         }
         else {
             this.studentsIDs.add(studentID);

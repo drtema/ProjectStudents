@@ -1,0 +1,7 @@
+2
+Igor
+Petrov
+1,2
+Semen
+Ivanov
+3

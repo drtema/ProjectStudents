@@ -19,39 +19,22 @@ public class StudentsList implements StudentsDAO {
     }
 
     @Override
-    public Student find(int studentID) {
+    public Student find(int studentID) throws NullPointerException {
         for (Student student:studentList) {
             if (studentID == student.getStudentID()) {
                 return student;
             }
         }
-        return null;
+        throw new NullPointerException("Student with id " + studentID + " doesn’t exist");
     }
 
     @Override
     public void view(int studentID) {
-        if(find(studentID) == null) {
-            System.out.println("Trainer with id " + studentID + " doesn’t exist");
-        } else
+        try {
             System.out.println(find(studentID));
-    }
-
-    public static List<String> getStudentsFirstNames() {
-
-        List<String> students1stNames = new ArrayList();
-        for (Student course : studentList) {
-            students1stNames.add(course.getFirstName());
+        } catch (NullPointerException e){
+            System.out.println(e.getMessage());
         }
-        return students1stNames;
-    }
-
-    public static List<String> getStudentsLastNames() {
-
-        List<String> studentsLastNames = new ArrayList();
-        for (Student course : studentList) {
-            studentsLastNames.add(course.getLastName());
-        }
-        return studentsLastNames;
     }
 
     @Override

@@ -24,40 +24,23 @@ public class TrainersList implements TrainersDAO {
     }
 
     @Override
-    public Trainer find(int trainerID) {
+    public Trainer find(int trainerID) throws NullPointerException{
         for (Trainer trainer:trainersList) {
             if (trainerID == trainer.getTrainerID()) {
                 return trainer;
             }
         }
-        return null;
+        throw new NullPointerException("Trainer with id " + trainerID + " doesn’t exist");
     }
 
     @Override
     public void view(int trainerID) {
-        if(find(trainerID) == null) {
-            System.out.println("Trainer with id " + trainerID + " doesn’t exist");
-        } else
+        try {
             System.out.println(find(trainerID));
-    }
-
-
-    public static List<String> getTrainersFirstNames() {
-
-        List<String> trainers1stNames = new ArrayList();
-        for (Trainer course : trainersList) {
-            trainers1stNames.add(course.getFirstName());
+        }catch (NullPointerException e){
+            System.out.println(e.getMessage());
         }
-        return trainers1stNames;
     }
 
-    public static List<String> getTrainersLastNames() {
-
-        List<String> trainersLastNames = new ArrayList();
-        for (Trainer course : trainersList) {
-            trainersLastNames.add(course.getLastName());
-        }
-        return trainersLastNames;
-    }
 
 }
