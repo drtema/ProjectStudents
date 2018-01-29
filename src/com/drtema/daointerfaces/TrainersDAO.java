@@ -14,4 +14,5 @@ public interface TrainersDAO {
     Trainer find(int trainerID);
     void view(int trainerID);
     int getSize();
+    void close();
 }

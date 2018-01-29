@@ -37,8 +37,14 @@ public class StudentsList implements StudentsDAO {
         }
     }
 
+        
+
     @Override
     public int getSize() {
         return studentList.size();
+    }
+    @Override
+    public void close() {
+        studentList.clear();
     }
 }

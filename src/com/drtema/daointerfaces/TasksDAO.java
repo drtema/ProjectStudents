@@ -9,4 +9,5 @@ public interface TasksDAO {
     Task add(Task task);
     Task find(Integer taskID);
     Task findByCourseID(Integer courseID);
+    void close();
 }

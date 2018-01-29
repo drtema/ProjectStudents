@@ -11,4 +11,5 @@ public interface StudentsDAO {
     Student find(int studentID);
     void view(int studentID);
     int getSize();
+    void close();
 }

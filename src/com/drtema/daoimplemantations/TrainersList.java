@@ -42,5 +42,10 @@ public class TrainersList implements TrainersDAO {
         }
     }
 
+    @Override
+    public void close() {
+        trainersList.clear();
+    }
+
 
 }

@@ -21,7 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by Dr.tema on 08.04.17.
+ * Realized UI and command input
  */
 public class CourseInterface {
 
@@ -70,6 +70,7 @@ public class CourseInterface {
                     objectCounter = Integer.valueOf(scanner.nextLine());
                 } catch (IOException e) {
                     System.out.println("Invalid Path or File");
+                    inputType = true;
                 }
             }
         } else
@@ -507,6 +508,13 @@ public class CourseInterface {
         } catch (NullPointerException e){
             System.out.println(e.getMessage());
         }
+    }
+
+    public static void exit(){
+        coursesData.close();
+        trainersData.close();
+        tasksData.close();
+        studentsData.close();
     }
 
 }

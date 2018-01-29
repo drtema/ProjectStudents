@@ -38,4 +38,9 @@ public class TaskList implements TasksDAO {
         throw new NullPointerException("Task with id " + courseID + " doesn’t exist");
     }
 
+    @Override
+    public void close() {
+        taskList.clear();
+    }
+
 }

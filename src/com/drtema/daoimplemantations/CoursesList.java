@@ -68,4 +68,8 @@ public class CoursesList implements CoursesDAO {
         return courses.size();
     }
 
+    @Override
+    public void close() {
+        courses.clear();
+    }
 }

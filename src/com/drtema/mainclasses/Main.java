@@ -5,7 +5,7 @@ import com.drtema.userinterfaces.CourseInterface;
 import java.util.Scanner;
 
 /**
- * Created by Dr.tema on 08.04.17.
+ * Realized UI and command input
  */
 public class Main {
     public static void main(String... args){
@@ -188,6 +188,7 @@ public class Main {
                     }
                     break;
                 case "0":
+                    CourseInterface.exit();
                     break outer;
                 default:
                     System.out.println("invalid command!");
